@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Redrob Hackathon — Candidate Ranking System
 
 A deterministic, explainable, rule-based candidate ranking system for the Redrob AI/ML hiring challenge.
