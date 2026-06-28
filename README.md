@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Redrob Hackathon — Candidate Ranking System
 
 A deterministic, explainable, rule-based ranker for the **Intelligent Candidate
@@ -258,3 +259,7 @@ there are more than enough direct-title matches to fill 100 slots, we
 consider this the correct behavior rather than a bug — but it's a deliberate
 weighting choice (title_tier_score carries the largest single weight, 0.35)
 that's worth being able to defend explicitly if asked.
+=======
+# Hack2Runs
+Candidate Ranking System for Hackathon.
+>>>>>>> ebd1b0a55a116412fccd347352909f684305e81a
