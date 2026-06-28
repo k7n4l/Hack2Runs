@@ -15,12 +15,9 @@ team_members:
 # ============================================================================
 # Code and reproducibility
 # ============================================================================
-github_repo: "https://github.com/YOUR_USERNAME/YOUR_REPO"
+github_repo: "https://github.com/k7n4l/Hack2Runs"
 
 sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
-# Required. A working hosted environment where the ranker can be run on a small
-# candidate sample. See Section 10.5 of submission_spec.md for acceptable
-# platforms (HuggingFace Spaces, Streamlit Cloud, Replit, Colab, Docker, Binder).
 
 reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
 # The single command that produces submission.csv from candidates.jsonl.
