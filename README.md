@@ -110,17 +110,4 @@ base_fit
 - Lightweight
 - Rule-based
 =======
----
-title: Redrob Ranker
-emoji: 🌖
-colorFrom: green
-colorTo: indigo
-sdk: gradio
-sdk_version: 6.19.0
-python_version: '3.13'
-app_file: app.py
-pinned: false
----
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
->>>>>>> 1526bdf59ca3801564b6ecdc459d7b5da1a66b15
