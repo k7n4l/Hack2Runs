@@ -5,8 +5,7 @@ team_name: "Sygnalynx"
 
 primary_contact:
   name: "Kunal Sudhir Kale"
-  email: "kalekunal706@gmail.com"  
-  phone: "+91-8788925587"        
+  email: "kalekunal706@gmail.com"         
 
 team_members:
   - name: "Kunal Sudhir Kale"
@@ -17,24 +16,25 @@ team_members:
 # ============================================================================
 github_repo: "https://github.com/k7n4l/Hack2Runs"
 
-sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+sandbox_link: "https://huggingface.co/spaces/Kunal706/redrob-ranker"
 
-reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
-# The single command that produces submission.csv from candidates.jsonl.
-# Should run end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+reproduce_command: "python rank.py --candidates data/candidates.jsonl --out ./submission.csv"
+# sandbox uses sample_candidates.jsonl with --top-n 50
+dataset_note: "Official dataset provided by organizers; not included in repository"
+#Dataset must be in the data folder and the output will be generated in the current directory as submission.csv
 
 # ============================================================================
 # Compute environment
 # ============================================================================
 compute:
-  platform: "FILL IN: your machine (e.g. 'MacBook Pro M2', 'AWS EC2 c5.4xlarge')"
-  cpu_cores: 8                                  # FILL IN: your actual core count
-  ram_gb: 16                                    # FILL IN: your actual available RAM
-  python_version: "3.12.3"                      # verified during development; confirm with `python --version` on your machine
-  os: "FILL IN: e.g. 'Ubuntu 22.04 LTS', 'macOS 14.2'"
-  uses_gpu_for_inference: false                 # true here is accurate: no GPU used anywhere
-  has_network_during_ranking: false             # true here is accurate: zero network calls in rank.py
-  pre_computation_required: false               # true here is accurate: no precomputed embeddings/models
+  platform: "Windows Desktop (Intel CPU)"
+  cpu_cores: 4
+  ram_gb: 8
+  python_version: "3.12.3"
+  os: "Windows"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
   pre_computation_time_minutes: 0
 
 # ============================================================================
@@ -45,39 +45,44 @@ ai_tools_used:
   - "Redrob AI"       # Used for code review and implementation.
 
 ai_usage_summary: |
-  FILL IN — be specific and honest, this gets cross-checked at the Stage 5 interview.
-  Example starting point if accurate for your workflow:
-  "Used Claude to design and implement the ranking pipeline: skill taxonomy,
-  disqualifier logic, honeypot detection, scoring formula, and reasoning
-  generation. Reviewed and tested all code personally, including running the
-  organizers' own validate_submission.py against the output and verifying
-  determinism by diffing two runs. No candidate data was sent to any external
-  LLM API — the ranking pipeline itself makes zero network calls."
+  Used Claude and AI assistants for architecture design, code review, and iterative refinement of the ranking pipeline, including feature engineering, disqualifier rules, and scoring formula design.
+
+  All implementation decisions were reviewed and verified manually. The final system is deterministic, rule-based, and does not rely on external API calls or model inference during execution.
+
+  The pipeline was tested using the official validation script and verified for reproducibility by running identical inputs multiple times and confirming identical outputs.
+
+  No candidate data was sent to external AI services during execution of the ranking pipeline.
 
 # ============================================================================
 # Approach summary (optional but recommended)
 # ============================================================================
 methodology_summary: |
-  Rule-based ranker, fully deterministic, no ML training or embeddings.
-  Ten scored signals combine into a weighted base_fit (title-tier match 35%,
-  percentile-normalized core ML-infrastructure skills 25%, experience-band
-  fit 15%, production/eval-language signal 10%, availability 10%, location
-  fit 5%), multiplied by skill-credibility (self-report vs. Redrob's own
-  skill_assessment_scores), a vision/speech-only penalty, a consolidated
-  disqualifier multiplier (consulting-only career, title-chasing, platform
-  inactivity, architect-not-coding), and a honeypot multiplier from three
-  logical-impossibility checks. The skill-credibility cross-check is the
-  main defense against keyword-stuffed skill lists: 56% of candidates with
-  assessment data over-claim at least one skill relative to their own
-  verified test score. Runtime ~15 seconds for 100K candidates on CPU,
-  single-threaded, stdlib only.
+  The system is a fully deterministic, rule-based ranker with no ML training, embeddings, or external model inference.
 
-# ============================================================================
-# Declarations
+  Candidates are scored using a weighted combination of ten engineered signals forming the base_fit score:
+
+  - title-tier match (35%)
+  - core ML-infrastructure skill coverage (25%)
+  - experience-band alignment (15%)
+  - production and evaluation signal from career history (10%)
+  - availability and recency signals (10%)
+  - location fit (5%)
+
+  The base score is further adjusted using:
+  - skill-credibility multiplier (alignment between self-reported skills and platform assessment scores)
+  - vision/speech-only penalty for non-relevant profiles
+  - disqualifier multipliers (consulting-only career, rapid title-chasing, platform inactivity, architect-only without coding evidence)
+  - honeypot detection penalties based on logical consistency checks in candidate profiles
+
+  The system prioritizes verifiable engineering evidence over keyword frequency or self-reported skills.
+
+  Runtime is ~15 seconds for 100K candidates on CPU, using a single-threaded, standard-library-based implementation.
+
+  The design ensures full reproducibility: identical input always produces identical output.
 # ============================================================================
 declarations:
-  read_submission_spec: true        # I have read submission_spec.md in full
-  code_is_original_work: true       # My code is my team's original work (using AI as a tool is fine)
-  no_collusion: true                # I have not coordinated my submission with other teams
-  honeypot_check_done: true         # explicit rule-based honeypot detection in src/honeypot.py (3 logical-impossibility checks; 59/100,000 flagged, 0 appear in the top-100 output)
-  reproduction_tested: true         # I have tested that my reproduce_command runs end-to-end
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
